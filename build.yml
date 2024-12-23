@@ -1,0 +1,12 @@
+services:
+  pwsh:
+    image: ${DOCKER_REGISTRY}:${IMAGE_TAG}
+    build:
+      context: .      
+      args:
+        BASE_OS: ${BASE_OS}
+        BASE_IMAGE_TAG: ${BASE_IMAGE_TAG}
+        PWSH_VERSION: ${PWSH_VERSION}
+      platforms:
+        - linux/amd64
+        - linux/arm64

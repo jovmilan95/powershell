@@ -19,3 +19,5 @@ RUN apt-get update && apt-get install libicu-dev ca-certificates -y && \
 COPY --from=pwsh_downloader /powershell/7/$TARGETARCH /opt/microsoft/powershell/7/
 RUN ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh && \
     chmod +x /usr/bin/pwsh
+
+CMD ["pwsh"]

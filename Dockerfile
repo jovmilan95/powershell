@@ -12,6 +12,8 @@ RUN ./get-pwsh.sh $PWSH_VERSION
 
 FROM ${BASE_OS}:${BASE_IMAGE_TAG}
 ARG TARGETARCH
+ARG PWSH_VERSION 
+ENV PWSH_VERSION=$PWSH_VERSION
 WORKDIR /app
 RUN apt-get update && apt-get install libicu-dev ca-certificates -y && \
     apt-get clean && \

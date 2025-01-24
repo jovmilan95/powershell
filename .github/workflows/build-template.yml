@@ -32,9 +32,11 @@ jobs:
 
           LATEST_RELEASE=$(echo $RESPONSE | jq '.[] | select(.prerelease == false) | .tag_name' | head -n 1)
 
-          echo "Latest stable release version: $LATEST_RELEASE"
+          CLEANED_VERSION=$(echo $LATEST_RELEASE | sed 's/^v//')
 
-          echo "PWSH_VERSION=$LATEST_RELEASE" >> $GITHUB_ENV
+          echo "Latest stable release version: $CLEANED_VERSION"
+
+          echo "PWSH_VERSION=$CLEANED_VERSION" >> $GITHUB_ENV
 
       - name: Show the latest release version
         run: |
@@ -48,7 +50,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
+          username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image with Latest PowerShell version
@@ -59,10 +61,7 @@ jobs:
             --build-arg BASE_OS=${{ inputs.os }} \
             --build-arg BASE_IMAGE_TAG=${{ inputs.os_version }} \
             --build-arg PWSH_VERSION=${{ env.PWSH_VERSION }} \
-            -t ${{ secrets.DOCKER_USERNAME }}/powershell:${{ inputs.os }}-${{ inputs.os_version }} \
-            -t ${{ secrets.DOCKER_USERNAME }}/powershell:${{ inputs.os }}-${{ inputs.os_version }}-${{ env.PWSH_VERSION }} \
+            -t ${{ vars.DOCKER_USERNAME }}/powershell:${{ inputs.os }}-${{ inputs.os_version }} \
+            -t ${{ vars.DOCKER_USERNAME }}/powershell:${{ inputs.os }}-${{ inputs.os_version }}-${{ env.PWSH_VERSION }} \
             . \
             --push
-
-      - name: Logout from Docker Hub
-        run: docker logout

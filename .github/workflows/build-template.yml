@@ -1,0 +1,67 @@
+---
+name: Build and Push Docker Image
+
+on:
+    workflow_call:
+      inputs:
+        os:
+          description: "Operating System"
+          required: true
+        os_version:
+          description: "Operating System Version"
+          required: true
+  jobs:
+    fetch-and-build:
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+  
+        - name: Get Latest Stable PowerShell Release
+          id: get_release
+          run: |
+            REPO_OWNER="PowerShell"
+            REPO_NAME="PowerShell"
+  
+            API_URL="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases"
+  
+            RESPONSE=$(curl -s $API_URL)
+  
+            LATEST_RELEASE=$(echo $RESPONSE | jq '.[] | select(.prerelease == false) | .tag_name' | head -n 1)
+  
+            echo "Latest stable release version: $LATEST_RELEASE"
+  
+            echo "::set-output name=version::$LATEST_RELEASE"
+  
+        - name: Show the latest release version
+          run: |
+            echo "Latest stable release: ${{ steps.get_release.outputs.version }}"
+  
+        - name: Set up Docker Buildx
+          uses: docker/setup-buildx-action@v2
+          with:
+            version: latest
+  
+        - name: Log in to Docker Hub
+          uses: docker/login-action@v2
+          with:
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+  
+        - name: Build Docker image with Latest PowerShell version
+          id: build
+          run: |
+            docker buildx build \
+              --platform linux/amd64,linux/arm64 \
+              --build-arg BASE_OS=${{ inputs.os }} \
+              --build-arg BASE_IMAGE_TAG=${{ inputs.os_version }} \
+              --build-arg PWSH_VERSION=${{ steps.get_release.outputs.version }} \
+              -t ${{ secrets.DOCKER_USERNAME }}/powershell:${{ inputs.os }}-${{ inputs.os_version }} \
+              -t ${{ secrets.DOCKER_USERNAME }}/powershell:${{ inputs.os }}-${{ inputs.os_version }}-${{ steps.get_release.outputs.version }} \
+              . \
+              --push
+  
+        - name: Logout from Docker Hub
+          run: docker logout
+  

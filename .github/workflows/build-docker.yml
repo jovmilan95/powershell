@@ -10,36 +10,43 @@ on:
 jobs:
   debian_latest:
     uses: ./.github/workflows/build-template.yml
+    secrets: inherit
     with:
       os: debian
       os_version: latest
 
   debian_12_slim:
     uses: ./.github/workflows/build-template.yml
+    secrets: inherit
     with:
       os: debian
       os_version: 12-slim
 
   debian_12:
     uses: ./.github/workflows/build-template.yml
+    secrets: inherit
     with:
       os: debian
       os_version: 12
 
+
   ubuntu_24_04:
     uses: ./.github/workflows/build-template.yml
+    secrets: inherit
     with:
       os: ubuntu
       os_version: 24.04
 
   ubuntu_22_04:
     uses: ./.github/workflows/build-template.yml
+    secrets: inherit
     with:
       os: ubuntu
       os_version: 22.04
 
   ubuntu_latest:
     uses: ./.github/workflows/build-template.yml
+    secrets: inherit
     with:
       os: ubuntu
       os_version: latest

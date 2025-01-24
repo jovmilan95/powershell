@@ -30,7 +30,7 @@ jobs:
 
           RESPONSE=$(curl -s $API_URL)
 
-          LATEST_RELEASE=$(echo $RESPONSE | jq '.[] | select(.prerelease == false) | .tag_name' | head -n 1)
+          LATEST_RELEASE=$(echo $RESPONSE | jq '.[] | select(.prerelease == false) | .tag_name' | head -n 1 |  tr -d '"')
 
           if [[ "$LATEST_RELEASE" == v* ]]; then
             CLEANED_VERSION="${LATEST_RELEASE:1}"

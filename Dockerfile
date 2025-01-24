@@ -19,14 +19,13 @@ ARG PWSH_VERSION
 ENV PWSH_VERSION=$PWSH_VERSION
 
 # Add maintainer information and labels
-LABEL maintainer="jovmilan995@gmail.com"
-LABEL org.opencontainers.image.title="PowerShell Docker Image"
-LABEL org.opencontainers.image.description="Cross-platform PowerShell Docker images built on Debian and Ubuntu, supporting amd64 and arm64."
-LABEL org.opencontainers.image.authors="jovmilan995@gmail.com"
-LABEL org.opencontainers.image.version=$PWSH_VERSION
-LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.source="https://github.com/jovmilan95/pwsh-docker"
-LABEL org.opencontainers.image.created="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+LABEL maintainer="jovmilan995@gmail.com" \
+      org.opencontainers.image.title="PowerShell Docker Image" \
+      org.opencontainers.image.description="Cross-platform PowerShell Docker images built on Debian and Ubuntu, supporting amd64 and arm64." \
+      org.opencontainers.image.authors="jovmilan995@gmail.com" \
+      org.opencontainers.image.version=$PWSH_VERSION \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.source="https://github.com/jovmilan95/pwsh-docker"
 
 WORKDIR /app
 # Install necessary dependencies and copy PowerShell binaries

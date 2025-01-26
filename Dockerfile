@@ -27,7 +27,6 @@ LABEL maintainer="jovmilan995@gmail.com" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/jovmilan95/pwsh-docker"
 
-WORKDIR /app
 # Install necessary dependencies and copy PowerShell binaries
 RUN apt-get update && apt-get install libicu-dev ca-certificates -y && \
     apt-get clean && \

@@ -28,7 +28,7 @@ LABEL maintainer="jovmilan995@gmail.com" \
       org.opencontainers.image.source="https://github.com/jovmilan95/powershell"
 
 # Install necessary dependencies and copy PowerShell binaries
-RUN apt-get update && apt-get install libicu-dev ca-certificates -y && \
+RUN apt-get update && apt-get install --no-install-recommends  libicu-dev ca-certificates -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/ /var/cache/apt/archives /var/log/apt/ /tmp/*
 

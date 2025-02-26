@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
 
 # Define build arguments
-ARG BASE_IMAGE_TAG
-ARG BASE_OS
+ARG BASE_IMAGE_TAG=debian
+ARG BASE_OS=12-slim
 
 # Stage: PowerShell Downloader
 FROM --platform=$BUILDPLATFORM alpine:3.20 AS pwsh_downloader
@@ -17,6 +17,7 @@ FROM ${BASE_OS}:${BASE_IMAGE_TAG}
 ARG TARGETARCH
 ARG PWSH_VERSION
 ENV PWSH_VERSION=$PWSH_VERSION
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Add maintainer information and labels
 LABEL maintainer="jovmilan995@gmail.com" \

@@ -2,15 +2,7 @@
 
 This repository provides a versatile PowerShell Docker image built on Debian and Ubuntu, supporting both `amd64` and `arm64` architectures. It is designed to work seamlessly across multiple platforms, addressing the gap left by the official PowerShell Docker images, which currently support only the Mariner distribution for `arm64`. These Debian-based containers aim to simplify cross-platform development and deployment.
 
-## Features
-
-- **Supported Operating Systems**:
-  - Debian 12 (`debian-12`)
-  - Debian 12 Slim (`debian-12-slim`)
-  - Ubuntu 22.04 (`ubuntu-22.04`)
-  - Ubuntu 24.04 (`ubuntu-24.04`)
-
-- **Supported Architectures**:
+## Supported Architectures
   - `amd64` (x86_64)
   - `arm64` (aarch64)
 

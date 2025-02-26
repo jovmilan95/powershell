@@ -24,14 +24,13 @@ LABEL maintainer="jovmilan995@gmail.com" \
       org.opencontainers.image.title="PowerShell Docker Image" \
       org.opencontainers.image.description="Cross-platform PowerShell Docker images built on Debian and Ubuntu, supporting amd64 and arm64." \
       org.opencontainers.image.authors="jovmilan995@gmail.com" \
-      org.opencontainers.image.version=$PWSH_VERSION \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.source="https://github.com/jovmilan95/powershell"
 
 # Install necessary dependencies and copy PowerShell binaries
 RUN apt-get update && apt-get install libicu-dev ca-certificates -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/ /var/cache/apt/archives /var/log/apt/ /tmp/*
 
 COPY --from=pwsh_downloader /powershell/7/$TARGETARCH /opt/microsoft/powershell/7/
 RUN ln -s /opt/microsoft/powershell/7/pwsh /usr/bin/pwsh && \

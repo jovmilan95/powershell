@@ -65,6 +65,5 @@ jobs:
             --build-arg BASE_IMAGE_TAG=${{ inputs.os_version }} \
             --build-arg PWSH_VERSION=${{ env.PWSH_VERSION }} \
             -t ${{ vars.DOCKER_USERNAME }}/powershell:${{ inputs.os }}-${{ inputs.os_version }} \
-            -t ${{ vars.DOCKER_USERNAME }}/powershell:${{ inputs.os }}-${{ inputs.os_version }}-${{ env.PWSH_VERSION }} \
             . \
             --push
